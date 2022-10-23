@@ -2,8 +2,10 @@ import { IHabit, IHabits } from "./types";
 
 export default class HabitPresenter {
   habits;
-  constructor(habits: IHabits) {
+  maxHabits;
+  constructor(habits: IHabits, maxHabits: number) {
     this.habits = habits;
+    this.maxHabits = maxHabits;
   }
   getHabits() {
     return this.habits;
@@ -28,7 +30,7 @@ export default class HabitPresenter {
   ) {
     this.habits = this.habits.map((item) => {
       if (item.id === habit.id) {
-        const count = habit.count - 1;
+        const count = item.count - 1;
         return { ...habit, count: count < 0 ? 0 : count };
       }
       return item;
@@ -42,6 +44,11 @@ export default class HabitPresenter {
   }
 
   add(name: string, update: React.Dispatch<React.SetStateAction<IHabits>>) {
+    if (this.habits.length === this.maxHabits) {
+      throw new Error(
+        `habit의 개수는 ${this.maxHabits} 이상이 될 수 없습니다.`
+      );
+    }
     this.habits = [...this.habits, { id: Date.now(), name, count: 0 }];
     update(this.habits);
   }
