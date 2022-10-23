@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { IHabit } from "../App";
+import React from "react";
+import { IHabit } from "../types";
 import Habit from "./habit";
 import HabitAddForm from "./habitAddForm";
 
@@ -12,44 +12,48 @@ interface IHabitsProps {
   onReset: () => void;
 }
 
-class Habits extends Component<IHabitsProps> {
-  handleIncrement = (habit: IHabit) => {
-    this.props.onIncrement(habit);
+const Habits = ({
+  habits,
+  onIncrement,
+  onDecrement,
+  onDelete,
+  onAdd,
+  onReset,
+}: IHabitsProps) => {
+  const handleIncrement = (habit: IHabit) => {
+    onIncrement(habit);
   };
-  handleDecrement = (habit: IHabit) => {
-    this.props.onDecrement(habit);
+  const handleDecrement = (habit: IHabit) => {
+    onDecrement(habit);
   };
-  handleDelete = (habit: IHabit) => {
-    this.props.onDelete(habit);
+  const handleDelete = (habit: IHabit) => {
+    onDelete(habit);
   };
 
-  handleAdd = (name: string) => {
-    this.props.onAdd(name);
+  const handleAdd = (name: string) => {
+    onAdd(name);
   };
-
-  render() {
-    return (
-      <div>
-        <HabitAddForm onAdd={this.handleAdd} />
-        <ul>
-          {this.props.habits.map((habit) => {
-            return (
-              <Habit
-                key={habit.id}
-                habit={habit}
-                onIncrement={this.handleIncrement}
-                onDecrement={this.handleDecrement}
-                onDelete={this.handleDelete}
-              />
-            );
-          })}
-        </ul>
-        <button className="habit-reset" onClick={this.props.onReset}>
-          Reset All
-        </button>
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <HabitAddForm onAdd={handleAdd} />
+      <ul>
+        {habits.map((habit) => {
+          return (
+            <Habit
+              key={habit.id}
+              habit={habit}
+              onIncrement={handleIncrement}
+              onDecrement={handleDecrement}
+              onDelete={handleDelete}
+            />
+          );
+        })}
+      </ul>
+      <button className="habit-reset" onClick={onReset}>
+        Reset All
+      </button>
+    </div>
+  );
+};
 
 export default Habits;
