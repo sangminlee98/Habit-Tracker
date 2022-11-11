@@ -1,7 +1,7 @@
 import React from "react";
 import { IHabit } from "../types";
 import Habit from "./habit";
-import HabitAddForm from "./habitAddForm";
+import HabitAddForm from "./form/habitAddForm";
 
 interface IHabitsProps {
   habits: IHabit[];

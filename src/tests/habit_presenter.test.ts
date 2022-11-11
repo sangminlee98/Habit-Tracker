@@ -55,7 +55,7 @@ describe("HabitPresenter", () => {
     presenter.reset(updateFn);
 
     presenter.getHabits().map((habit) => {
-      expect(habit.count).toBe(0);
+      return expect(habit.count).toBe(0);
     });
     checkUpdateIsCall(1);
   });
