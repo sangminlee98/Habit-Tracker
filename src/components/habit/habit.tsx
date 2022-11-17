@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { IHabit } from "../types";
+import { IHabit } from "../../types";
 
 interface IHabitProps {
   habit: IHabit;
